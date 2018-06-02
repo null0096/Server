@@ -12,17 +12,17 @@
 			$this->database 	= 'mydiscs';
 		}
 
-		public function getAllDiscs() {
-			$link 			= mysqli_connect($this->host, $this->user, $this->password, $this->database) or die('Error ' . mysqli_error($link));
+		public function sendAllDiscs() {
+			$link 			= mysql_pconnect($this->host, $this->user, $this->password, $this->database) or die('Error ' . mysqli_error($link));
 			$query 			= "SELECT * FROM discs";
 			$queryResult	= mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link));
 			mysqli_close($link);
 
 			if ( $queryResult ) {
-				$rows = mysqli_num_rows($queryResult);
+				$rowsCount = mysqli_num_rows($queryResult);
 
 				echo "<table class=\"table\"><tr><th>disc_id</th><th>disc_name</th></tr>";
-				for ( $i = 0; $i < $rows; $i++ ) {
+				for ( $i = 0; $i < $rowsCount; $i++ ) {
 					$row = mysqli_fetch_row($queryResult);
 
 					echo  "<tr>";
@@ -34,4 +34,3 @@
 			echo "</table>";
 		}
 	}
-?>
